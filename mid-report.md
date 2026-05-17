@@ -22,17 +22,8 @@
 
 <img width="900" height="600" alt="Figure_2" src="https://github.com/user-attachments/assets/b5bdda5b-dd07-4b3a-b458-d42a56bd7835" />
 
-개선된 모델 정확도: 0.6818
+<img width="587" height="252" alt="image" src="https://github.com/user-attachments/assets/d491f3c2-9c4c-4776-b6bc-49cdf182a355" />
 
-[개선된 분류 보고서]
-               precision    recall  f1-score   support
-
-         0.0       0.85      0.62      0.72       100
-         1.0       0.53      0.80      0.64        54
-
-    accuracy                           0.68       154
-   macro avg       0.69      0.71      0.68       154
-weighted avg       0.74      0.68      0.69       154
 
 ### 1-3. 백엔드 API 서버 구축 현황
 FastAPI 프레임워크를 활용하여 학습된 모델(model.pkl)과 스케일러(scaler.pkl)를 서빙하는 백엔드 아키텍처를 완료함.
