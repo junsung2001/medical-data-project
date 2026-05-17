@@ -24,6 +24,7 @@
 
 개선된 모델 정확도: 0.6818
 
+[개선된 분류 보고서]
                precision    recall  f1-score   support
 
          0.0       0.85      0.62      0.72       100
