@@ -50,22 +50,29 @@
         }
 
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
-        label {
-            display: block;
-            margin-bottom: 5px;
+        .form-group label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
             font-weight: bold;
             font-size: 0.9em;
         }
 
-        input {
+        .value-display {
+            background: var(--primary-color);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.85em;
+        }
+
+        input[type="range"] {
             width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
+            cursor: pointer;
         }
 
         button {
@@ -165,36 +172,36 @@
             <h2>데이터 입력</h2>
             <form id="predict-form">
                 <div class="form-group">
-                    <label>임신 횟수</label>
-                    <input type="number" id="pregnancies" value="2" min="0">
+                    <label>임신 횟수 <span class="value-display" id="val-pregnancies">2</span></label>
+                    <input type="range" id="pregnancies" min="0" max="20" value="2" oninput="updateVal('pregnancies')">
                 </div>
                 <div class="form-group">
-                    <label>공복 혈당 (mg/dL)</label>
-                    <input type="number" id="glucose" value="130" min="0">
+                    <label>공복 혈당 (mg/dL) <span class="value-display" id="val-glucose">130</span></label>
+                    <input type="range" id="glucose" min="0" max="300" value="130" oninput="updateVal('glucose')">
                 </div>
                 <div class="form-group">
-                    <label>혈압 (mmHg)</label>
-                    <input type="number" id="blood_pressure" value="70" min="0">
+                    <label>혈압 (mmHg) <span class="value-display" id="val-blood_pressure">70</span></label>
+                    <input type="range" id="blood_pressure" min="0" max="200" value="70" oninput="updateVal('blood_pressure')">
                 </div>
                 <div class="form-group">
-                    <label>피부 두께 (mm)</label>
-                    <input type="number" id="skin_thickness" value="20" min="0">
+                    <label>피부 두께 (mm) <span class="value-display" id="val-skin_thickness">20</span></label>
+                    <input type="range" id="skin_thickness" min="0" max="100" value="20" oninput="updateVal('skin_thickness')">
                 </div>
                 <div class="form-group">
-                    <label>인슐린 (mu U/ml)</label>
-                    <input type="number" id="insulin" value="80" min="0">
+                    <label>인슐린 (mu U/ml) <span class="value-display" id="val-insulin">80</span></label>
+                    <input type="range" id="insulin" min="0" max="900" value="80" oninput="updateVal('insulin')">
                 </div>
                 <div class="form-group">
-                    <label>BMI (kg/m²)</label>
-                    <input type="number" id="bmi" value="25.5" step="0.1" min="0">
+                    <label>BMI (kg/m²) <span class="value-display" id="val-bmi">25.5</span></label>
+                    <input type="range" id="bmi" min="0" max="70" step="0.1" value="25.5" oninput="updateVal('bmi')">
                 </div>
                 <div class="form-group">
-                    <label>당뇨 가족력 지수</label>
-                    <input type="number" id="diabetes_pedigree" value="0.45" step="0.01" min="0">
+                    <label>당뇨 가족력 지수 <span class="value-display" id="val-diabetes_pedigree">0.45</span></label>
+                    <input type="range" id="diabetes_pedigree" min="0" max="2.5" step="0.01" value="0.45" oninput="updateVal('diabetes_pedigree')">
                 </div>
                 <div class="form-group">
-                    <label>나이</label>
-                    <input type="number" id="age" value="35" min="0">
+                    <label>나이 <span class="value-display" id="val-age">35</span></label>
+                    <input type="range" id="age" min="1" max="99" value="35" oninput="updateVal('age')">
                 </div>
                 <button type="submit" id="predict-btn">위험도 예측하기</button>
             </form>
@@ -224,6 +231,12 @@
     <script>
         const API_BASE_URL = '';
         let currentPrediction = null;
+
+        function updateVal(id) {
+            const input = document.getElementById(id);
+            const display = document.getElementById(`val-${id}`);
+            display.textContent = input.value;
+        }
 
         // 1. 예측 기능
         document.getElementById('predict-form').addEventListener('submit', async (e) => {
@@ -259,7 +272,7 @@
                 const riskPercent = document.getElementById('risk-percent');
 
                 resultBox.style.display = 'block';
-                resultBox.className = 'result-box ' + (result.is_diabetes ? 'result-high' : 'result-low');
+                resultBox.className = 'result-box ' + (result.is_diabetes ? 'result-high' : 'result-high');
                 riskLevel.textContent = result.risk_level;
                 riskPercent.textContent = result.diabetes_risk_percent;
 
